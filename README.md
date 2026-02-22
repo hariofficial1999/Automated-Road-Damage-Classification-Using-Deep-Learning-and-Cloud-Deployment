@@ -81,5 +81,4 @@ The model is evaluated based on:
 
 ---
 
-## 🛡️ License
-Distributed under the MIT License.
+
