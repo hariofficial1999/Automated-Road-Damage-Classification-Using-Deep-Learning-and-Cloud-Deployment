@@ -13,7 +13,7 @@ Road infrastructure maintenance is critical for safety. This project provides an
 - **Classification**: Detects 3 categories: Potholes, Cracks, and Manholes.
 - **Explainable AI (XAI)**: Uses **Grad-CAM** to generate heatmaps, showing exactly which regions of the image influenced the AI's decision.
 - **Maintenance Recommendations**: Provides damage-specific actions for repair prioritization.
-- **Lightweight Deployment**: Optimized using **MobileNetV2** for fast, real-time performance on a web interface.
+- **Lightweight Deployment**: Optimized using **ResNet50** for robust performance on a web interface.
 - **Modern UI**: Built with **Streamlit** for a user-friendly experience.
 
 ---
@@ -21,8 +21,8 @@ Road infrastructure maintenance is critical for safety. This project provides an
 ## 🛠️ Tech Stack
 - **Languages**: Python
 - **Libraries**: TensorFlow, Keras, OpenCV, NumPy, Matplotlib, Seaborn
-- **Architecture**: MobileNetV2 (Transfer Learning), Baseline CNN
-- **Deployment**: Streamlit Cloud / Flask
+- **Architecture**: ResNet50 (Transfer Learning), Baseline CNN
+- **Deployment**: Streamlit Local / Cloud
 
 ---
 
@@ -34,7 +34,7 @@ Road infrastructure maintenance is critical for safety. This project provides an
     - Class Imbalance: Handled using `class_weights`.
 2.  **Model Development**:
     - Baseline CNN model.
-    - Transfer Learning with **MobileNetV2** and **ResNet50**.
+    - Transfer Learning with **ResNet50**.
     - Fine-tuning selected layers to optimize accuracy.
 3.  **Model Evaluation**:
     - Metrics: Accuracy, Precision, Recall, F1-Score.
@@ -50,7 +50,7 @@ D:\Intern Project\Final Project\
 │   └── labels/      # OBB/Text annotations
 ├── Road_Damage_Classification.ipynb  # Training & Evaluation logic
 ├── app.py           # Streamlit Web Application
-├── road_damage_final_model.h5       # Trained model file
+├── resnet50_fine_tuned.h5       # Trained model file
 └── README.md        # Documentation
 ```
 
@@ -63,7 +63,7 @@ Open the Jupyter Notebook and run all cells:
 ```bash
 jupyter notebook Road_Damage_Classification.ipynb
 ```
-*This will generate the `road_damage_final_model.h5` file.*
+*This will generate the `resnet50_fine_tuned.h5` file.*
 
 ### 2. Launching the Web App
 Run the following command in your terminal:
@@ -78,7 +78,3 @@ The model is evaluated based on:
 - **Model Metrics**: Accuracy and F1-Score for classification performance.
 - **System Metrics**: Latency analysis for real-time responsiveness.
 - **Usability**: Ease of use for manual damage reporting.
-
----
-
-
