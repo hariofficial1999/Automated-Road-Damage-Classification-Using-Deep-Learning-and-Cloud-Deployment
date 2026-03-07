@@ -61,7 +61,7 @@ D:\Intern Project\Final Project\
 ### 1. Training the Model
 Open the Jupyter Notebook and run all cells:
 ```bash
-jupyter notebook Road_Damage_Classification.ipynb
+Data.ipynb
 ```
 *This will generate the `resnet50_fine_tuned.h5` file.*
 
