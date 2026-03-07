@@ -21,7 +21,7 @@ Road infrastructure maintenance is critical for safety. This project provides an
 ## 🛠️ Tech Stack
 - **Languages**: Python
 - **Libraries**: TensorFlow, Keras, OpenCV, NumPy, Matplotlib, Seaborn
-- **Architecture**: ResNet50 (Transfer Learning), Baseline CNN
+- **Architecture**: ResNet50 (Best Model / Transfer Learning), Baseline CNN
 - **Deployment**: Streamlit Local / Cloud
 
 ---
@@ -34,10 +34,11 @@ Road infrastructure maintenance is critical for safety. This project provides an
     - Class Imbalance: Handled using `class_weights`.
 2.  **Model Development**:
     - Baseline CNN model.
-    - Transfer Learning with **ResNet50**.
+    - Transfer Learning with **ResNet50** (Selected as the Best Model).
     - Fine-tuning selected layers to optimize accuracy.
 3.  **Model Evaluation**:
-    - Metrics: Accuracy, Precision, Recall, F1-Score.
+    - Compared 3 architectures: Baseline CNN (51%), MobileNetV2 FT (54%), and **ResNet50 FT (61%)**.
+    - **ResNet50** was selected as the final best model due to its superior feature extraction and highest F1-score.
     - Visualizations: Confusion Matrix and Grad-CAM screenshots.
 
 ---
@@ -50,7 +51,7 @@ D:\Intern Project\Final Project\
 │   └── labels/      # OBB/Text annotations
 ├── Road_Damage_Classification.ipynb  # Training & Evaluation logic
 ├── app.py           # Streamlit Web Application
-├── resnet50_fine_tuned.h5       # Trained model file
+├── resnet50_fine_tuned.h5       # Trained model file (Best Model)
 └── README.md        # Documentation
 ```
 
@@ -61,7 +62,7 @@ D:\Intern Project\Final Project\
 ### 1. Training the Model
 Open the Jupyter Notebook and run all cells:
 ```bash
-Data.ipynb
+jupyter notebook Road_Damage_Classification.ipynb
 ```
 *This will generate the `resnet50_fine_tuned.h5` file.*
 
@@ -74,7 +75,11 @@ streamlit run app.py
 ---
 
 ## 📈 Evaluation Metrics
-The model is evaluated based on:
-- **Model Metrics**: Accuracy and F1-Score for classification performance.
+The final evaluated performance across tested architectures:
+- **Baseline CNN**: ~51% Accuracy
+- **MobileNetV2 (Transfer Learning)**: ~54% Accuracy
+- **ResNet50 (Transfer Learning)**: ~**61% Accuracy** 🏆 *(Best Model)*
+
+ResNet50 achieved the highest accuracy and F1-score, demonstrating superior feature extraction capabilities for road damage detection compared to lighter networks.
 - **System Metrics**: Latency analysis for real-time responsiveness.
 - **Usability**: Ease of use for manual damage reporting.
