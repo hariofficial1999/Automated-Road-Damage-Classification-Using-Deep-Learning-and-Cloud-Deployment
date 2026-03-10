@@ -1,29 +1,29 @@
-# 🛣️ Automated Road Damage Classification Using Deep Learning and Cloud Deployment
+# Automated Road Damage Classification Using Deep Learning and Cloud Deployment
 
-A Deep Learning and Computer Vision project designed to automatically identify and classify road infrastructure issues (**Potholes**, **Cracks**, and **Manholes**) and provide actionable maintenance recommendations using **Explainable AI (Grad-CAM)**.
-
----
-
-## 🚀 Overview
-
-Road infrastructure maintenance is critical for public safety. Manual inspection is time-consuming, inconsistent, and costly. This project provides an **AI-powered solution** using **Convolutional Neural Networks (CNN)** and **Transfer Learning** to process road images captured from smartphones or vehicle cameras, delivering real-time analysis for municipal authorities and transportation departments.
+This project classifies road damage into 3 categories — **Pothole**, **Crack**, and **Manhole** — using deep learning models. It also uses **Grad-CAM** to show which part of the image the model looked at, and gives repair recommendations.
 
 ---
 
-## ✨ Key Features
+## Overview
+
+Checking roads manually for damage takes a lot of time and effort. This project uses **CNN** and **Transfer Learning** to classify road images taken from phones or vehicle cameras. A **Streamlit web app** is included for easy use.
+
+---
+
+## Features
 
 | Feature | Description |
 |---|---|
-| 🔍 **Multi-Class Classification** | Detects 3 damage categories: Potholes, Cracks, and Manholes |
-| 🧠 **Explainable AI (XAI)** | Uses **Grad-CAM** heatmaps to show which image regions influenced the AI's decision |
-| 🛠️ **Maintenance Recommendations** | Provides damage-specific repair actions for prioritization |
-| ⚡ **Transfer Learning** | Fine-tuned **ResNet50** for robust performance on limited data |
-| 🌐 **Web Application** | Built with **Streamlit** for an interactive, user-friendly experience |
-| 📊 **Model Comparison** | Evaluated Baseline CNN, MobileNetV2, and ResNet50 architectures |
+| **Classification** | Classifies into 3 types: Pothole, Crack, Manhole |
+| **Grad-CAM** | Shows heatmap of which area the model focused on |
+| **Recommendations** | Gives repair suggestions based on damage type |
+| **Transfer Learning** | Fine-tuned **ResNet50** for better accuracy |
+| **Web App** | Built with **Streamlit** |
+| **Model Comparison** | Compared Baseline CNN, MobileNetV2, and ResNet50 |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technology |
 |---|---|
@@ -31,158 +31,150 @@ Road infrastructure maintenance is critical for public safety. Manual inspection
 | **Deep Learning** | TensorFlow, Keras |
 | **Image Processing** | OpenCV, PIL, NumPy |
 | **Visualization** | Matplotlib, Seaborn |
-| **Explainability** | Grad-CAM (Gradient-weighted Class Activation Mapping) |
+| **Explainability** | Grad-CAM |
 | **Data Handling** | Pandas, Scikit-learn |
-| **Model Architectures** | Baseline CNN, MobileNetV2, ResNet50 |
-| **Deployment** | Streamlit (Local / Cloud) |
+| **Models** | Baseline CNN, MobileNetV2, ResNet50 |
+| **Deployment** | Streamlit |
 
 ---
 
-## 📊 Approach & Methodology
+## Approach
 
-### 1️⃣ Data Preparation
-- **Dataset**: Road Damage Dataset (RDD) with 3 classes — Pothole, Crack, Manhole
-- **Preprocessing**: Resized to `224×224`, pixel normalization (`/255.0`)
-- **Data Augmentation**: Rotation, horizontal/vertical flips, brightness adjustment, blur for real-world robustness
-- **Class Imbalance**: Handled using `class_weights` to prevent bias towards majority class
-- **Split**: Train / Test split for model evaluation
+### 1. Data Preparation
+- **Dataset**: Road Damage Dataset (RDD) — 3 classes (Pothole, Crack, Manhole)
+- **Preprocessing**: Resized to `224×224`, normalized (`/255.0`)
+- **Augmentation**: Rotation, flips, brightness change, blur
+- **Class Imbalance**: Handled using `class_weights`
+- **Split**: Train / Test
 
-### 2️⃣ Model Development
+### 2. Model Development
 
 | Model | Type | Description |
 |---|---|---|
-| **Baseline CNN** | Custom CNN | Built from scratch with Conv2D, MaxPool, Dense layers |
-| **MobileNetV2** | Transfer Learning | Lightweight model, fine-tuned last 50 layers + BatchNorm |
-| **ResNet50** | Transfer Learning | Deep residual network, fine-tuned for best accuracy ✅ |
+| **Baseline CNN** | Custom CNN | Built from scratch using Conv2D, MaxPool, Dense |
+| **MobileNetV2** | Transfer Learning | Fine-tuned last 50 layers + BatchNorm |
+| **ResNet50** | Transfer Learning | Fine-tuned, best accuracy |
 
-#### Fine-Tuning Strategy (MobileNetV2 / ResNet50):
+#### Fine-Tuning Code:
 ```python
 # Step 1: Unfreeze base model
 base_model.trainable = True
 
-# Step 2: Freeze first layers (keep early feature extraction frozen)
+# Step 2: Freeze first layers
 for layer in base_model.layers[:-50]:
     layer.trainable = False
 
-# Step 3: Re-enable BatchNormalization layers for domain adaptation
+# Step 3: Keep BatchNormalization trainable
 for layer in base_model.layers:
     if isinstance(layer, tf.keras.layers.BatchNormalization):
         layer.trainable = True
 ```
 
-### 3️⃣ Model Evaluation
+### 3. Model Evaluation
 
 | Model | Accuracy | Status |
 |---|---|---|
-| Baseline CNN | ~51% | ❌ Weak |
-| MobileNetV2 (Fine-Tuned) | ~54% | ⚠️ Moderate |
-| **ResNet50 (Fine-Tuned)** | **~61%** | ✅ **Best Model** 🏆 |
+| Baseline CNN | ~51% | Weak |
+| MobileNetV2 (Fine-Tuned) | ~54% | Moderate |
+| **ResNet50 (Fine-Tuned)** | **~61%** | **Best Model** |
 
-- **ResNet50** was selected as the final model due to its superior feature extraction and highest F1-score
-- Evaluation includes: Confusion Matrix, Classification Report, and Grad-CAM visualizations
+- ResNet50 gave the best accuracy and F1-score
+- Evaluated using Confusion Matrix, Classification Report, and Grad-CAM
 
-### 4️⃣ Explainable AI — Grad-CAM
-- Generates **heatmaps** overlaid on original images
-- Shows exactly **which regions** of the road image the model focused on
-- Helps build **trust and transparency** in AI predictions
+### 4. Grad-CAM
+- Generates heatmaps on top of the original image
+- Shows which part of the image the model focused on
+- Useful for understanding model predictions
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 Final Project/
 ├── data/
-│   ├── images/                          # Dataset image files
-│   ├── labels/                          # OBB/Text annotations
+│   ├── images/                          # Dataset images
+│   ├── labels/                          # Annotations
 │   ├── train/                           # Training data
 │   └── test/                            # Test data
 ├── TEST.ipynb                           # Training & Evaluation Notebook
-├── app.py                               # Streamlit Web Application
+├── app.py                               # Streamlit Web App
 ├── test_gradcam.py                      # Grad-CAM Testing Script
 ├── baseline_cnn.h5                      # Baseline CNN Model
-├── mobilenetv2_road_damage.h5           # MobileNetV2 Fine-Tuned Model
-├── resnet50_fine_tuned.h5               # ResNet50 Fine-Tuned Model (Best) 🏆
+├── mobilenetv2_road_damage.h5           # MobileNetV2 Model
+├── resnet50_fine_tuned.h5               # ResNet50 Model (Best)
 ├── Final Project_B94.pdf                # Project Report
-└── README.md                            # Documentation
+└── README.md                            # This file
 ```
 
 ---
 
-## ⚙️ How to Run
+## How to Run
 
-### Prerequisites
+### Install Dependencies
 ```bash
 pip install tensorflow streamlit numpy pillow opencv-python matplotlib seaborn scikit-learn pandas
 ```
 
-### 1. Training the Model
-Open the Jupyter Notebook and run all cells:
+### 1. Train the Model
 ```bash
 jupyter notebook TEST.ipynb
 ```
-> This will train all 3 models and generate `.h5` model files.
+Run all cells. This will generate the `.h5` model files.
 
-### 2. Launching the Web App
-Run the following command in your terminal:
+### 2. Run the Web App
 ```bash
 streamlit run app.py
 ```
-> The app will open at `http://localhost:8501` — upload a road image to get predictions!
+Opens at `http://localhost:8501`. Upload a road image to get the prediction.
 
 ---
 
-## 🌐 Web App Features
+## Web App
 
 1. **Upload** a road image (JPG, JPEG, PNG)
-2. **AI Prediction** — Detects damage type (Pothole / Crack / Manhole)
-3. **Confidence Score** — Shows prediction confidence percentage
-4. **Class Probabilities** — Displays probability for all 3 classes
-5. **Maintenance Recommendation** — Provides actionable repair suggestions
+2. **Prediction** — Shows damage type (Pothole / Crack / Manhole)
+3. **Confidence Score** — Shows how confident the model is
+4. **Class Probabilities** — Shows probability for all 3 classes
+5. **Recommendation** — Gives repair suggestion
 
 | Damage Type | Recommendation |
 |---|---|
-| ⚠️ Pothole | Schedule immediate repair |
-| 🔍 Crack | Monitor and seal the crack soon |
-| ✅ Manhole | Inspect cover condition and alignment |
+| Pothole | Schedule immediate repair |
+| Crack | Monitor and seal the crack soon |
+| Manhole | Inspect cover condition and alignment |
 
 ---
 
-## 📈 Evaluation Metrics Summary
+## Results
 
-The final evaluated performance across all tested architectures:
-
-| Metric | Baseline CNN | MobileNetV2 FT | ResNet50 FT 🏆 |
+| Metric | Baseline CNN | MobileNetV2 FT | ResNet50 FT |
 |---|---|---|---|
 | **Accuracy** | ~51% | ~54% | **~61%** |
-| **Best For** | Baseline comparison | Lightweight deployment | Best accuracy |
+| **Best For** | Baseline comparison | Lightweight use | Best accuracy |
 | **Layers Fine-Tuned** | All (custom) | Last 50 + BatchNorm | Last layers + BatchNorm |
 
-> **Conclusion**: ResNet50 achieved the highest accuracy and F1-score, demonstrating superior feature extraction capabilities for road damage detection compared to lighter networks.
+ResNet50 gave the best results compared to other models.
 
 ---
 
-## 🔮 Future Improvements
+## Future Work
 
-- 📷 **Real-time Detection**: Integrate with live camera feeds for continuous road monitoring
-- 🗺️ **GPS Integration**: Map damaged locations for city-wide damage tracking
-- 📱 **Mobile App**: Deploy on Android/iOS for on-field inspections
-- 🧠 **More Classes**: Extend to detect speed bumps, lane markings, and road signs
-- ☁️ **Cloud Deployment**: Deploy on AWS/GCP/Azure for scalable usage
+- Connect with live camera for real-time detection
+- Add GPS to track damage locations on a map
+- Build a mobile app for field inspections
+- Add more damage classes (speed bumps, lane markings)
+- Deploy on cloud (AWS / GCP / Azure)
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Hariharan** — Data Science Intern  
 Project: Automated Road Damage Classification Using Deep Learning and Cloud Deployment
 
 ---
 
-## 📝 License
+## License
 
-This project is developed for educational and research purposes.
-
----
-
-> *Built with ❤️ using TensorFlow, ResNet50, and Streamlit*
+This project is for educational and research purposes.
