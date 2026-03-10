@@ -296,6 +296,3 @@ Project: Automated Road Damage Classification Using Deep Learning and Cloud Depl
 
 ---
 
-## License
-
-This project is for educational and research purposes.
