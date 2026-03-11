@@ -91,7 +91,7 @@ Built from scratch using Sequential API:
 - **Optimizer**: Adam (`lr=1e-3`)
 - **Loss**: `sparse_categorical_crossentropy`
 - **Epochs**: 10
-- **Result**: ~48% accuracy
+- **Result**: ~44% accuracy
 - **Saved as**: `baseline_cnn.h5`
 
 ---
@@ -130,7 +130,7 @@ mobilenet_model = models.Sequential([
 | Trainable Layers | 85 |
 | Non-trainable Layers | 69 |
 
-- **Result**: ~56% accuracy
+- **Result**: ~57% accuracy
 - **Saved as**: `mobilenetv2_road_damage.h5`
 
 ---
@@ -163,7 +163,7 @@ resnet_model = models.Sequential([
 - Re-compiled with: Adam (`lr=1e-5`)
 - Fine-tuned for 10 more epochs
 
-- **Result**: ~64% accuracy (Best)
+- **Result**: ~61% accuracy (Best)
 - **Saved as**: `resnet50_fine_tuned.h5`
 
 ---
@@ -174,9 +174,9 @@ resnet_model = models.Sequential([
 
 | Model | Test Accuracy |
 |---|---|
-| Baseline CNN | ~48% |
-| MobileNetV2 (Fine-Tuned) | ~56% |
-| **ResNet50 (Fine-Tuned)** | **~64%** |
+| Baseline CNN | ~44% |
+| MobileNetV2 (Fine-Tuned) | ~57% |
+| **ResNet50 (Fine-Tuned)** | **~61%** |
 
 ### Evaluation Metrics Used
 - **Accuracy** — overall correct predictions
@@ -210,9 +210,9 @@ Final Project/
 │       └── 2_Manhole/
 ├── TEST.ipynb                           # Full Training & Evaluation Notebook
 ├── app.py                               # Streamlit Web App
-├── baseline_cnn.h5                      # Baseline CNN Model (~48%)
-├── mobilenetv2_road_damage.h5           # MobileNetV2 Fine-Tuned Model (~56%)
-├── resnet50_fine_tuned.h5               # ResNet50 Fine-Tuned Model (~64%) — Best
+├── baseline_cnn.h5                      # Baseline CNN Model (~44%)
+├── mobilenetv2_road_damage.h5           # MobileNetV2 Fine-Tuned Model (~57%)
+├── resnet50_fine_tuned.h5               # ResNet50 Fine-Tuned Model (~61%) — Best
 ├── Final Project_B94.pdf                # Project Report
 └── README.md                            # This file
 ```
